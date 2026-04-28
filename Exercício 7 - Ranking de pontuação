@@ -1,0 +1,83 @@
+public class RankingPontuacao {
+
+    private String[] jogadores;
+    private int[] pontuacoes;
+    private int tamanho;
+
+    public RankingPontuacao(int capacidade) {
+        jogadores = new String[capacidade];
+        pontuacoes = new int[capacidade];
+        tamanho = 0;
+    }
+
+    // Inserir jogador
+    public void inserir(String nome, int pontuacao) {
+        if (tamanho < jogadores.length) {
+            jogadores[tamanho] = nome;
+            pontuacoes[tamanho] = pontuacao;
+            tamanho++;
+        } else {
+            System.out.println("Ranking cheio!");
+        }
+    }
+
+    // Atualizar pontuação
+    public void atualizar(String nome, int novaPontuacao) {
+        for (int i = 0; i < tamanho; i++) {
+            if (jogadores[i].equalsIgnoreCase(nome)) {
+                pontuacoes[i] = novaPontuacao;
+                System.out.println("Pontuação atualizada!");
+                return;
+            }
+        }
+        System.out.println("Jogador não encontrado!");
+    }
+
+    // Exibir jogador com maior pontuação
+    public void maiorPontuacao() {
+        if (tamanho == 0) {
+            System.out.println("Nenhum jogador cadastrado!");
+            return;
+        }
+
+        int maior = pontuacoes[0];
+        String jogadorMaior = jogadores[0];
+
+        for (int i = 1; i < tamanho; i++) {
+            if (pontuacoes[i] > maior) {
+                maior = pontuacoes[i];
+                jogadorMaior = jogadores[i];
+            }
+        }
+
+        System.out.println("Maior pontuação: " + jogadorMaior + " → " + maior);
+    }
+
+    // Exibir todos
+    public void exibir() {
+        System.out.println("\nRanking:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(jogadores[i] + " → " + pontuacoes[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        RankingPontuacao ranking = new RankingPontuacao(10);
+
+        // Inserindo jogadores
+        ranking.inserir("Arthur", 150);
+        ranking.inserir("Maria", 200);
+        ranking.inserir("João", 120);
+        ranking.inserir("Ana", 180);
+
+        // Exibir ranking
+        ranking.exibir();
+
+        // Atualizar pontuação
+        ranking.atualizar("João", 220);
+
+        // Mostrar maior pontuação
+        ranking.maiorPontuacao();
+    }
+}
