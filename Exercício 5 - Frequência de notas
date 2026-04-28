@@ -1,0 +1,38 @@
+public class FrequenciaNotas {
+
+    public static void main(String[] args) {
+
+        int[] vetor = {7, 8, 7, 10, 8, 7};
+
+        int[] notasUnicas = new int[10];
+        int[] frequencias = new int[10];
+        int tamanho = 0;
+
+        for (int nota : vetor) {
+
+            boolean encontrada = false;
+
+            // verifica se já existe
+            for (int i = 0; i < tamanho; i++) {
+                if (notasUnicas[i] == nota) {
+                    frequencias[i]++;
+                    encontrada = true;
+                    break;
+                }
+            }
+
+            // se não existe, adiciona
+            if (!encontrada) {
+                notasUnicas[tamanho] = nota;
+                frequencias[tamanho] = 1;
+                tamanho++;
+            }
+        }
+
+        // exibir resultado
+        System.out.println("Frequência das notas:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(notasUnicas[i] + " → " + frequencias[i]);
+        }
+    }
+}
