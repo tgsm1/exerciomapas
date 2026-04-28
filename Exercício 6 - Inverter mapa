@@ -1,0 +1,27 @@
+public class InverterMapa {
+
+    public static void main(String[] args) {
+
+        // mapa original
+        int[] chaves = {1, 2, 3};
+        String[] valores = {"A", "B", "C"};
+
+        int tamanho = chaves.length;
+
+        // mapa invertido
+        String[] novasChaves = new String[tamanho];
+        int[] novosValores = new int[tamanho];
+
+        // invertendo
+        for (int i = 0; i < tamanho; i++) {
+            novasChaves[i] = valores[i];
+            novosValores[i] = chaves[i];
+        }
+
+        // exibindo resultado
+        System.out.println("Mapa invertido:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(novasChaves[i] + " → " + novosValores[i]);
+        }
+    }
+}
