@@ -1,0 +1,78 @@
+public class ControleEstoque {
+
+    private String[] produtos;
+    private int[] quantidades;
+    private int tamanho;
+
+    public ControleEstoque(int capacidade) {
+        produtos = new String[capacidade];
+        quantidades = new int[capacidade];
+        tamanho = 0;
+    }
+
+    // Inserir produto
+    public void inserir(String produto, int quantidade) {
+
+        // verifica se já existe
+        for (int i = 0; i < tamanho; i++) {
+            if (produtos[i].equalsIgnoreCase(produto)) {
+                quantidades[i] += quantidade;
+                return;
+            }
+        }
+
+        // novo produto
+        if (tamanho < produtos.length) {
+            produtos[tamanho] = produto;
+            quantidades[tamanho] = quantidade;
+            tamanho++;
+        } else {
+            System.out.println("Estoque cheio!");
+        }
+    }
+
+    // Simular venda
+    public void vender(String produto, int quantidade) {
+        for (int i = 0; i < tamanho; i++) {
+            if (produtos[i].equalsIgnoreCase(produto)) {
+
+                if (quantidades[i] >= quantidade) {
+                    quantidades[i] -= quantidade;
+                    System.out.println("Venda realizada!");
+                } else {
+                    System.out.println("Estoque insuficiente!");
+                }
+                return;
+            }
+        }
+        System.out.println("Produto não encontrado!");
+    }
+
+    // Exibir estoque
+    public void exibir() {
+        System.out.println("\nEstoque atual:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(produtos[i] + " → " + quantidades[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        ControleEstoque estoque = new ControleEstoque(10);
+
+        // Inserindo produtos
+        estoque.inserir("Arroz", 10);
+        estoque.inserir("Feijão", 5);
+        estoque.inserir("Macarrão", 8);
+
+        // Exibir estoque
+        estoque.exibir();
+
+        // Simular venda
+        estoque.vender("Arroz", 3);
+        estoque.vender("Feijão", 2);
+
+        // Exibir atualizado
+        estoque.exibir();
+    }
+}
