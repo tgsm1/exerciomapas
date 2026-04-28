@@ -1,0 +1,82 @@
+public class MapaAlunos {
+
+    private Integer[] matriculas;
+    private String[] nomes;
+    private int tamanho;
+
+    public MapaAlunos(int capacidade) {
+        matriculas = new Integer[capacidade];
+        nomes = new String[capacidade];
+        tamanho = 0;
+    }
+
+    // Inserir aluno
+    public void inserir(Integer matricula, String nome) {
+        if (tamanho < matriculas.length) {
+            matriculas[tamanho] = matricula;
+            nomes[tamanho] = nome;
+            tamanho++;
+        } else {
+            System.out.println("Mapa cheio!");
+        }
+    }
+
+    // Buscar aluno pela matrícula
+    public String buscar(Integer matricula) {
+        for (int i = 0; i < tamanho; i++) {
+            if (matriculas[i].equals(matricula)) {
+                return nomes[i];
+            }
+        }
+        return "Aluno não encontrado";
+    }
+
+    // Remover aluno
+    public void remover(Integer matricula) {
+        for (int i = 0; i < tamanho; i++) {
+            if (matriculas[i].equals(matricula)) {
+                // desloca os elementos
+                for (int j = i; j < tamanho - 1; j++) {
+                    matriculas[j] = matriculas[j + 1];
+                    nomes[j] = nomes[j + 1];
+                }
+                tamanho--;
+                System.out.println("Aluno removido!");
+                return;
+            }
+        }
+        System.out.println("Aluno não encontrado!");
+    }
+
+    // Exibir todos
+    public void exibir() {
+        System.out.println("\nLista de alunos:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println("Matrícula: " + matriculas[i] + " | Nome: " + nomes[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        MapaAlunos mapa = new MapaAlunos(10);
+
+        // Inserindo 5 alunos
+        mapa.inserir(101, "Arthur");
+        mapa.inserir(102, "Maria");
+        mapa.inserir(103, "João");
+        mapa.inserir(104, "Ana");
+        mapa.inserir(105, "Carlos");
+
+        // Exibir todos
+        mapa.exibir();
+
+        // Buscar aluno
+        System.out.println("\nBusca matrícula 103: " + mapa.buscar(103));
+
+        // Remover aluno
+        mapa.remover(102);
+
+        // Exibir novamente
+        mapa.exibir();
+    }
+}
