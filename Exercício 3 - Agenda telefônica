@@ -1,0 +1,83 @@
+public class AgendaTelefonica {
+
+    private String[] nomes;
+    private String[] telefones;
+    private int tamanho;
+
+    public AgendaTelefonica(int capacidade) {
+        nomes = new String[capacidade];
+        telefones = new String[capacidade];
+        tamanho = 0;
+    }
+
+    // Adicionar contato
+    public void adicionar(String nome, String telefone) {
+        if (tamanho < nomes.length) {
+            nomes[tamanho] = nome;
+            telefones[tamanho] = telefone;
+            tamanho++;
+        } else {
+            System.out.println("Agenda cheia!");
+        }
+    }
+
+    // Buscar telefone
+    public String buscar(String nome) {
+        for (int i = 0; i < tamanho; i++) {
+            if (nomes[i].equalsIgnoreCase(nome)) {
+                return telefones[i];
+            }
+        }
+        return "Contato não encontrado";
+    }
+
+    // Remover contato
+    public void remover(String nome) {
+        for (int i = 0; i < tamanho; i++) {
+            if (nomes[i].equalsIgnoreCase(nome)) {
+
+                // deslocar elementos
+                for (int j = i; j < tamanho - 1; j++) {
+                    nomes[j] = nomes[j + 1];
+                    telefones[j] = telefones[j + 1];
+                }
+
+                tamanho--;
+                System.out.println("Contato removido!");
+                return;
+            }
+        }
+        System.out.println("Contato não encontrado!");
+    }
+
+    // Exibir todos
+    public void exibir() {
+        System.out.println("\nAgenda telefônica:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(nomes[i] + " → " + telefones[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        AgendaTelefonica agenda = new AgendaTelefonica(10);
+
+        // Adicionando 4 contatos
+        agenda.adicionar("Arthur", "99999-1111");
+        agenda.adicionar("Maria", "98888-2222");
+        agenda.adicionar("João", "97777-3333");
+        agenda.adicionar("Ana", "96666-4444");
+
+        // Exibir contatos
+        agenda.exibir();
+
+        // Buscar telefone
+        System.out.println("\nTelefone da Maria: " + agenda.buscar("Maria"));
+
+        // Remover contato
+        agenda.remover("João");
+
+        // Exibir novamente
+        agenda.exibir();
+    }
+}
